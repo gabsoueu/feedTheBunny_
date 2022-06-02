@@ -13,6 +13,9 @@ var ground;
 var rope;
 var fruit;
 var fruitImg, backgroundImg, rabbitImg;
+var link;
+var rabbit;
+var scissor;
 
 function preload(){
   backgroundImg = loadImage("assets/background.png");
@@ -31,12 +34,24 @@ function setup()
   
   rope = new Rope(6,{x:250,y:10});
 
+
   var fruit_options = {
     density: 0.001
   }
 
   fruit = Bodies.circle(300,300,15,fruit_options);
   Matter.Composite.add(rope.body,fruit);
+
+  link = new Link(rope, fruit);
+
+  rabbit = createSprite (250,600,50,50)
+  rabbit.addImage (rabbitImg);
+  rabbit.scale = 0.3;
+
+  scissor = createImg ("assets/cut_btn.png");
+  scissor.position (250,10);
+  scissor.size (100,100);
+  scissor.mouseClicked (cut);
 
   rectMode(CENTER);
   ellipseMode(RADIUS);
@@ -58,9 +73,13 @@ function draw()
 
   ellipse(fruit.position.x,fruit.position.y,15);
 
-
+  drawSprites ();
 
 
  
    
+}
+
+function cut(){
+  
 }
