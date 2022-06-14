@@ -18,6 +18,7 @@ var link;
 var rabbit;
 var scissor, mute, balloon;
 var airMp3, eatingMp3, ropeCutMp3, sadMp3, sound1Mp3;
+var canW, canH;
 
 function preload(){
   backgroundImg = loadImage("assets/background.png");
@@ -41,7 +42,18 @@ function preload(){
 
 function setup() 
 {
-  createCanvas(500,700);
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    canW = displayWidth;
+    canH = displayHeight;
+    createCanvas(canW,canH);
+  }
+  else{
+    canW = windowWidth;
+    canH = windowHeight;
+    createCanvas(canW,canH);
+  }
+  //createCanvas(500,700);
   sound1Mp3.play ();
   sound1Mp3.setVolume(0);
 
@@ -49,7 +61,7 @@ function setup()
   engine = Engine.create();
   world = engine.world;
   
-  ground = new Ground(200,680,600,20);
+  ground = new Ground(200,canH-30,600,20);
   
   rope = new Rope(6,{x:250,y:10});
 
@@ -66,7 +78,7 @@ function setup()
   rabbitBlink.frameDelay = 25;
   rabbitEat.frameDelay = 25;
   rabbitSad.frameDelay = 25;
-  rabbit = createSprite (250,600,50,50);
+  rabbit = createSprite (250,canH-130,50,50);
   rabbit.addAnimation ("cisco",rabbitBlink);
   rabbit.addAnimation ("magali",rabbitEat);
   rabbit.addAnimation ("triste",rabbitSad);
@@ -101,7 +113,7 @@ function draw()
 
   push();
   imageMode (CORNER);
-  image(backgroundImg,0,0,500,700);
+  image(backgroundImg,0,0,canW,canH);
   pop();
   
   //ground.show();
