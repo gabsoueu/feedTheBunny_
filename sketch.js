@@ -10,13 +10,13 @@ const Composite = Matter.Composite;
 let engine;
 let world;
 var ground;
-var rope;
+var rope, rope2, rope3;
 var fruit;
 var fruitImg, backgroundImg, rabbitImg;
 var rabbitBlink, rabbitEat, rabbitSad;
-var link;
+var link, link2, link3;
 var rabbit;
-var scissor, mute, balloon;
+var scissor,scissor2,scissor3, mute, balloon;
 var airMp3, eatingMp3, ropeCutMp3, sadMp3, sound1Mp3;
 var canW, canH;
 
@@ -55,7 +55,7 @@ function setup()
   }
   //createCanvas(500,700);
   sound1Mp3.play ();
-  sound1Mp3.setVolume(0);
+  sound1Mp3.setVolume(0.5);
 
   frameRate(80);
   engine = Engine.create();
@@ -63,7 +63,9 @@ function setup()
   
   ground = new Ground(200,canH-30,600,20);
   
-  rope = new Rope(6,{x:250,y:10});
+  rope = new Rope(3,{x:250,y:10});
+  rope2 = new Rope(6,{x:100,y:80});
+  rope3 = new Rope(6,{x:350,y:5});
 
 
   var fruit_options = {
@@ -74,6 +76,8 @@ function setup()
   Matter.Composite.add(rope.body,fruit);
 
   link = new Link(rope, fruit);
+  link2 = new Link(rope2, fruit);
+  link3 = new Link(rope3, fruit);
 
   rabbitBlink.frameDelay = 25;
   rabbitEat.frameDelay = 25;
@@ -86,9 +90,20 @@ function setup()
   rabbit.scale = 0.3;
 
   scissor = createImg ("assets/cut_btn.png");
-  scissor.position (250,10);
+  scissor.position (200,0.2);
   scissor.size (100,100);
   scissor.mouseClicked (cut);
+
+  scissor2 = createImg ("assets/cut_btn.png");
+  scissor2.position (80,50);
+  scissor2.size (100,100);
+  scissor2.mouseClicked (cut2);
+
+  scissor3 = createImg ("assets/cut_btn.png");
+  scissor3.position (300,0.02);
+  scissor3.size (100,100);
+  scissor3.mouseClicked (cut3);
+
 
   mute = createImg ("assets/mute.png");
   mute.position (400,10);
@@ -96,7 +111,7 @@ function setup()
   mute.mouseClicked (muteButton);
 
   balloon = createImg ("assets/balloon.png");
-  balloon.position (90,180);
+  balloon.position (90,100);
   balloon.size (90,90);
   balloon.mouseClicked (airBalloon);
 
@@ -121,6 +136,8 @@ function draw()
   Engine.update(engine);
   
   rope.show();
+  rope2.show();
+  rope3.show();
 
   if (fruit != null) {
     image(fruitImg,fruit.position.x,fruit.position.y,120,120);
@@ -146,6 +163,20 @@ function cut(){
   rope.break ();
   link.remove ();
   link = null;
+  ropeCutMp3.play();
+}
+
+function cut2(){
+  rope2.break ();
+  link2.remove ();
+  link2 = null;
+  ropeCutMp3.play();
+}
+
+function cut3(){
+  rope3.break ();
+  link3.remove ();
+  link3 = null;
   ropeCutMp3.play();
 }
 
