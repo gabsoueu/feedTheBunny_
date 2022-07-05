@@ -125,10 +125,9 @@ function draw()
 {
   background(51);
   
-
   push();
-  imageMode (CORNER);
-  image(backgroundImg,0,0,canW,canH);
+  //imageMode(CORNER);
+  image(backgroundImg,width/2,height/2,width,height);
   pop();
   
   //ground.show();
